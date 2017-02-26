@@ -31,6 +31,7 @@ class SimpleTokenizer extends Tokenizer
     const TT_STRING = 10;
     const TT_BRACKET_OPEN = 20;
     const TT_BRACKET_CLOSE = 21;
+    const TT_EOL = 25;
 
     /** @var array Custom Tokens (Key = Class Constant, Value = Token-Character) */
     protected $customTokens = [];
@@ -52,6 +53,9 @@ class SimpleTokenizer extends Tokenizer
 
     /** @var string The Bracket-History (used for validating correct opening and closing) */
     private $bracketHistory = '';
+
+    /** @var bool Add EOL Tokens for \n */
+    public $addEOL = false;
 
     public function __construct()
     {
@@ -89,6 +93,9 @@ class SimpleTokenizer extends Tokenizer
         if (in_array($char, $this->separators) && $this->usedEnclosure === null) {
             $position = $this->index - strlen($this->currentToken);
             $this->currentToken = $this->addToken(self::TT_TOKEN, $this->currentToken, $position);
+            if ($char == "\n" && $this->addEOL === true) {
+                $this->currentToken = $this->addToken(self::TT_EOL, $char, $this->index);
+            }
             return false;
         }
 
@@ -156,7 +163,15 @@ class SimpleTokenizer extends Tokenizer
     {
         $position -= $this->escaped;
         $this->escaped = 0;
-        return parent::addToken($type, $value, $position);
+
+        if (trim($value) != '' || ($this->addEOL === true && $value === "\n")) {
+            $this->tokens[] = [
+                'type' => $type,
+                'value' => $value,
+                'position' => $position,
+            ];
+        }
+        return '';
     }
 
     /**

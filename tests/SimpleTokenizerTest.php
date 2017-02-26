@@ -358,4 +358,42 @@ class SimpleTokenizerTest extends TestCase
 
         $this->assertSame($expected, $tokenizer->tokenize($input));
     }
+
+    public function testTokenizeWithLineEndings()
+    {
+        $tokenizer = new SimpleTokenizer();
+        $tokenizer->addEOL = true;
+
+        $input = "This\nis a test";
+
+        $expected = [
+            [
+                'type' => 1,
+                'value' => 'This',
+                'position' => 0,
+            ],
+            [
+                'type' => 25,
+                'value' => "\n",
+                'position' => 4,
+            ],
+            [
+                'type' => 1,
+                'value' => 'is',
+                'position' => 5,
+            ],
+            [
+                'type' => 1,
+                'value' => 'a',
+                'position' => 8,
+            ],
+            [
+                'type' => 1,
+                'value' => 'test',
+                'position' => 10,
+            ]
+        ];
+
+        $this->assertSame($expected, $tokenizer->tokenize($input));
+    }
 }

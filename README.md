@@ -1,4 +1,4 @@
-[![GitHub tag](https://img.shields.io/packagist/v/Devtronic/super-tokenizer.svg)](https://github.com/Devtronic/super-tokenizer)
+[![GitHub tag](https://img.shields.io/packagist/v/devtronic/super-tokenizer.svg)](https://github.com/Devtronic/super-tokenizer)
 [![Packagist](https://img.shields.io/packagist/l/Devtronic/super-tokenizer.svg)](https://github.com/Devtronic/super-tokenizer/blob/master/LICENSE)
 [![Travis](https://img.shields.io/travis/Devtronic/super-tokenizer.svg)](https://travis-ci.org/Devtronic/super-tokenizer/)
 [![Packagist](https://img.shields.io/packagist/dt/Devtronic/super-tokenizer.svg)](https://github.com/Devtronic/super-tokenizer)

@@ -1,0 +1,13 @@
+language: php
+php:
+  - '7.0'
+  - '7.1'
+
+branches:
+    only: master
+
+before_script:
+    - composer self-update
+    - composer update --prefer-source `if [[ $COMPOSER_PREFER_LOWEST = true ]]; then echo "--prefer-lowest --prefer-stable"; fi`
+
+script: vendor/bin/phpunit --configuration phpunit.xml.dist
